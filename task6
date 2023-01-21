@@ -1,0 +1,47 @@
+import logging
+logging.basicConfig(filename='q6.log', level=logging.DEBUG , filemode='w', format="%(asctime)s %(levelname)s %(message)s")
+
+import os
+
+class fileParent:
+    def __init__(self,filename):
+        self.filename = filename
+                    
+    def read(self):
+        logging.info("Starting the read operation " )
+        try:
+            logging.info("i am inside try block of read method ")
+            with open(self.filename , 'r') as file :
+                data = file.read()
+                logging.info("I am able to read the file.")
+                return data
+        except FileNotFoundError as e:
+            logging.error("There is some issue with the read file op.")
+            logging.error(e) 
+            
+    def append(self,data):
+        try: 
+            logging.info("I am inside a try to append something")
+            with open(self.filename, 'a') as file :
+                newdata = file.write(data) 
+                logging.info("i am able to append some data into file succesfully")
+        except Exception as e : 
+            logging.error("there is an issue with append op")
+            logging.error(e)
+            
+    def delete(self,filename):
+        try:
+            logging.info("I am inside try block to delete a file.")
+            if os.path.exists(filename):
+                  os.remove(filename)
+                
+                  logging.info("File is deleted")
+            else:
+                  logging.info("The file does not exist") 
+        except Exception as e : 
+            logging.error("there is an issue with append op")
+            logging.error(e)
+            
+class fileChild(fileParent):
+    pass
+    
